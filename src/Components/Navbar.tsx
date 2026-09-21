@@ -1,12 +1,11 @@
-
-
 import { useState } from "react";
 import Logo from "../assets/logo-text.png";
+import type { NavLink } from "../Types/Navbar";
 
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Navbar: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  const navLinks = [
+  const navLinks: NavLink[] = [
     { name: "Home", href: "#home" },
     { name: "Technologies", href: "#technologies" },
     { name: "Projects", href: "#projects" },
@@ -39,7 +38,7 @@ const Navbar = () => {
 
         {/* Desktop navigation links */}
         <ul className="hidden items-center gap-6 text-lg text-[#cac5d8] lg:flex">
-          {navLinks.map((link) => (
+          {navLinks.map((link: NavLink) => (
             <li key={link.name}>
               <a
                 href={link.href}
@@ -66,7 +65,7 @@ const Navbar = () => {
       {/* Mobile dropdown menu */}
       {isMenuOpen && (
         <ul className="absolute left-0 top-full flex w-full flex-col gap-4 bg-[#0c0b14] px-6 py-5 text-lg text-[#cac5d8] shadow-lg lg:hidden">
-          {navLinks.map((link) => (
+          {navLinks.map((link: NavLink) => (
             <li key={link.name}>
               <a
                 href={link.href}
