@@ -1,32 +1,86 @@
-import React from 'react';
 
-import Logo from '../assets/logo-text.png';
+
+import { useState } from "react";
+import Logo from "../assets/logo-text.png";
 
 const Navbar = () => {
-    return (
-        <>
-        <div className="bg-[rgba(12,11,20,0.82)] backdrop-blue-[16px] sticky top-0 z-50">
-<div className="container mx-auto px-4 py-2  flex gap-4 justify-between items-center">
-               <img src={Logo} alt="Logo" className="w-94.2 h-28" />
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-                <ul className="flex gap-3 justify-between items-center text-2xl text-[#cac5d8] hover:text-white">
-                <li> <a href='#home'>Home</a></li>
-                <li><a href='#technologies'>Technologies</a></li>
-                <li><a href='#projects'>Projects</a> </li>
-                <li><a href='#about'>About</a></li>
-                <li><a href='#Contact'>Contact</a></li>
-                 </ul>
+  const navLinks = [
+    { name: "Home", href: "#home" },
+    { name: "Technologies", href: "#technologies" },
+    { name: "Projects", href: "#projects" },
+    { name: "About", href: "#about" },
+    { name: "Contact", href: "#contact" },
+  ];
 
-                 <div className="flex gap-3 justify-between items-center">
-                    <button className="rounded-full btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">Sign In</button>
-                    <button className="rounded-full  bg-pink-500 btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">Sign Up</button>
-                 </div>
-               
+  return (
+    <nav className="sticky top-0 z-50 bg-[rgba(12,11,20,0.82)] backdrop-blur-md">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-3 items-center px-4 py-3 lg:flex lg:justify-between lg:px-8">
+
+        {/* Left: Hamburger menu (mobile only) */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="justify-self-start text-3xl text-white lg:hidden"
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMenuOpen}
+        >
+          {isMenuOpen ? "✕" : "☰"}
+        </button>
+
+        {/* Center: Logo */}
+        <a href="#home" className="justify-self-center lg:justify-self-auto">
+          <img
+            src={Logo}
+            alt="Dev Stack Logo"
+            className="w-28 sm:w-36 lg:w-40"
+          />
+        </a>
+
+        {/* Desktop navigation links */}
+        <ul className="hidden items-center gap-6 text-lg text-[#cac5d8] lg:flex">
+          {navLinks.map((link) => (
+            <li key={link.name}>
+              <a
+                href={link.href}
+                className="transition-colors hover:text-white"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* Right: Authentication buttons */}
+        <div className="flex justify-self-end items-center gap-1.5 sm:gap-2 lg:gap-3">
+          <button className="btn btn-xs rounded-full sm:btn-sm lg:btn-md">
+            Sign In
+          </button>
+
+          <button className="btn btn-xs rounded-full bg-pink-500 text-white sm:btn-sm lg:btn-md">
+            Sign Up
+          </button>
         </div>
-        </div>
-        
-        </>
-    );
+      </div>
+
+      {/* Mobile dropdown menu */}
+      {isMenuOpen && (
+        <ul className="absolute left-0 top-full flex w-full flex-col gap-4 bg-[#0c0b14] px-6 py-5 text-lg text-[#cac5d8] shadow-lg lg:hidden">
+          {navLinks.map((link) => (
+            <li key={link.name}>
+              <a
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="block transition-colors hover:text-white"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </nav>
+  );
 };
 
 export default Navbar;
