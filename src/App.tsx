@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import Technologies from "./Components/Technologies";
+import Footer from "./Components/Footer";
 
 import type { ITechnology } from "./Types/Technologies";
 
@@ -39,6 +40,8 @@ function App() {
           />
         </Suspense>
       </main>
+
+      <Footer />
 
       <ToastContainer />
     </div>
