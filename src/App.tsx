@@ -1,35 +1,48 @@
-import React, { Suspense } from 'react';
 
-import { ToastContainer } from 'react-toastify';
-import Navbar from './Components/Navbar';
-import Hero from './Components/Hero';
-import Technologies from './Components/Technologies';
-import type { ITechnology } from './Types/Technologies';
+import { Suspense, useState } from "react";
+import { ToastContainer } from "react-toastify";
 
-const techPromiseFetch = async ():Promise<ITechnology[]> => {
-  const res =await fetch("/data.json")
-  const data = await res.json()
-  return data;
-}
+import Navbar from "./Components/Navbar";
+import Hero from "./Components/Hero";
+import Technologies from "./Components/Technologies";
+
+import type { ITechnology } from "./Types/Technologies";
+
+const techPromiseFetch = async (): Promise<ITechnology[]> => {
+  const res = await fetch("/data.json");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch technologies");
+  }
+
+  return res.json();
+};
+
+const techPromise = techPromiseFetch();
 
 function App() {
-  const techPromise = techPromiseFetch();
-  
+  const [selectedTechnologies, setSelectedTechnologies] = useState<
+    ITechnology[]
+  >([]);
+
   return (
-    <div>
-    <Navbar />
-    <Hero />
-    <Suspense fallback={<p>Loading...</p>}> 
-    <Technologies techPromise={techPromise} />
-    </Suspense>
-    
-    
-    
-    
-      
-      <ToastContainer></ToastContainer>
+    <div className="min-h-screen">
+      <Navbar />
+      <Hero />
+
+      <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <Suspense fallback={<p>Loading technologies...</p>}>
+          <Technologies
+            techPromise={techPromise}
+            selectedTechnologies={selectedTechnologies}
+            setSelectedTechnologies={setSelectedTechnologies}
+          />
+        </Suspense>
+      </main>
+
+      <ToastContainer />
     </div>
   );
-};
+}
 
 export default App;

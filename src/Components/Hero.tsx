@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
             {heroData.subheading}
           </h2>
 
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg lg:mx-0">
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-600 sm:text-2xl lg:mx-0">
             {heroData.description}
           </p>
 
