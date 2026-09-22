@@ -113,6 +113,34 @@ const Footer = () => {
   );
 };
 
+// Reusable Footer Links Component
+function FooterLinks({
+  title,
+  links,
+}: {
+  title: string;
+  links: [string, string][];
+}) {
+  return (
+    <nav>
+      <h2 className="mb-4 text-[11px] font-extrabold text-slate-700">
+        {title}
+      </h2>
 
+      <ul className="space-y-3">
+        {links.map(([label, href]) => (
+          <li key={label}>
+            <a
+              href={href}
+              className="text-xs text-slate-500 transition hover:text-pink-500"
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
 
 export default Footer;
